@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>                  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
+    </head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel='stylesheet' type='text/css' href='weathercss.css'> 
+    <body>
+	<h1> Weather Information </h1> 
+ <!-- <div class="city"> </div>
+<div class="laterinfo"> </div> -->
+        <table > 
+		<tr> 
+		<th> 
+	<p> 	City
+</p>
+		</th> 
+		
+		<th>
+<p>	
+	Description
+</p>	
+	</th>
+		</tr>
+		
+		<tr>
+		
+		<td> <div class="city"> </div> </td>
+		
+		<td> <div class="laterinfo"> </div> </td>
+		</tr>		
+		
+		</table>
+		<h2> Temperature values </h2> 
+		
+		<table> 
+		<tr> 
+		<th> Main temperature </th>
+		<th> Min temperature </th>
+		<th> Max temperature </th>
+		
+		<tr> 
+		<td> 
+		<div class="temp"> </div>
+		</td>
+		
+		<td> <div class="min_temp"> </div> </td> 
+		
+		<td><div class="max_temp"> </div>  </td> 
+		</tr>
+
+	</tr>
+		
+		</table>
+		
+		<h2> 	
+		Additional Information
+		</h2> 
+		
+		<table> 
+		<tr>		<td>Humidity level</td> <td > <div class="humidity"> </div> </td> </tr>
+		<tr > <td>Wind speed  </td> <td> <div class="wind_speed"> </div> </td> </tr>
+		<tr> <td > Pressure </td> <td ><div class="pressure"> </div> </td > </tr> 
+
+	</table> 
+		<script>
+		var lon;
+		var lat;
+		
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+     console.log("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+   //console.log( position.coords.latitude );
+    //console.log( position.coords.longitude);
+
+	lon = position.coords.longitude;
+	lat = position.coords.latitude;
+	
+	//console.log(lon,lat);
+getWeather(lat,lon);
+
+	
+	}
+
+getLocation();
+
+showPosition(); 
+function getWeather(lat,lon) {	 
+	 var apiCall = 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&APPID=bd0caa3b43757d95ee5b0ee3a2c34d5a&units=metric';
+$.getJSON(apiCall,weatherCallback);
+}
+function weatherCallback(weatherData) {
+var cityName = weatherData.name;
+var countryName = weatherData.sys.country;
+var description = weatherData.weather[0].description;
+console.log(weatherData.name,weatherData);
+//console.log(weatherData.name);
+console.log(weatherData.weather[0].description);
+console.log(weatherData.base);
+var temp = 	   weatherData.main.temp;
+var temp_min = weatherData.main.temp_min;
+var temp_max = weatherData.main.temp_max;
+var humidity = weatherData.main.humidity;
+var wind_speed = weatherData.wind.speed;
+//var rain3h = weatherData.rain.rain;
+//console.log(rain3h);
+var pressure = weatherData.main.pressure;
+
+
+
+$(".city").text(cityName + " , " +
+countryName);
+$(".laterinfo").text( description);
+$(".temp").text(temp);
+$(".min_temp").text(temp_min + " C " );
+$(".max_temp").text(temp_max + " C " );
+$(".humidity").text(humidity + " % " );
+$(".wind_speed").text(wind_speed  + " m/s " );
+$(".pressure").text(pressure + " hPa" );
+
+}
+       </script> 
+    </body>
+	
+	<footer>
+	
+<p> 	Project by Hussain Arif </p> 
+
+<p> Powered by OpenWeatherMap API </p>	
+	</footer>
+</html>
