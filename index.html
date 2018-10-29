@@ -28,7 +28,7 @@
 		
 		<td> <div class="city"> </div> </td>
 		
-		<td> <div class="laterinfo"> </div> </td>
+		<td> <div class="laterinfo"> </div> </td>        
 		</tr>		
 		
 		</table>
@@ -93,9 +93,11 @@ getLocation();
 
 showPosition(); 
 function getWeather(lat,lon) {	 
-	 var apiCall = 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&APPID=bd0caa3b43757d95ee5b0ee3a2c34d5a&units=metric';
+	 var apiCall = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&APPID=bd0caa3b43757d95ee5b0ee3a2c34d5a&units=metric';
 $.getJSON(apiCall,weatherCallback);
 }
+
+
 function weatherCallback(weatherData) {
 var cityName = weatherData.name;
 var countryName = weatherData.sys.country;
